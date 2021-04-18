@@ -1,17 +1,12 @@
 <template>
-  <img src="../assets/logo.png">
-  <div>
-    <p>
-      If Element Plus is successfully added to this project, you'll see an
-      <code v-text="'<el-button>'"></code>
-      below
-    </p>
-    <el-button type="primary">el-button</el-button>
+  <div id="app">
+    <LoginForm/>
   </div>
 </template>
 
 <script lang="ts">
     import { defineComponent } from 'vue';
+    import LoginForm from '../components/LoginForm.vue'
 
     export default defineComponent({
         name: 'Login',
@@ -19,7 +14,7 @@
             return {}
         },
         components: {
-
+            LoginForm
         },
         computed: {
 
@@ -30,13 +25,22 @@
     });
 </script>
 
-<style>
+<style scoped>
+.login {
+ position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+</style>
+
+<style lang="scss">
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+}
+body {
+  background: rgb(24,19,106);
+  background: linear-gradient(90deg, rgba(24,19,106,1) 0%, rgba(13,13,56,1) 100%, rgba(9,41,138,1) 100%);
 }
 </style>

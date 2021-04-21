@@ -18,14 +18,29 @@
           ></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button
-            class="login-button"
-            type="primary"
-            native-type="submit"
-            block
-          >Login</el-button>
+     <GoogleButton />
         </el-form-item>
       </el-form>
     </el-card>
   </div>
 </template>
+
+<script lang="ts">
+    import { defineComponent } from 'vue';
+    import  GoogleButton  from './GoogleButton.vue';
+
+    export default defineComponent({
+        name: 'Login',
+        data(): { }{
+            return {}
+        },
+        components: {
+            GoogleButton
+        },
+        computed: {
+          
+        },
+        methods: {
+        }
+    });
+</script>

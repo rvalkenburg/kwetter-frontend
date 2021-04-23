@@ -15,8 +15,10 @@
             placeholder="Password"
             type="password"
             prefix-icon="fas fa-lock"
+            
           ></el-input>
         </el-form-item>
+        <button @click.prevent="changeName()">test</button>
         <el-form-item>
      <GoogleButton />
         </el-form-item>
@@ -28,6 +30,7 @@
 <script lang="ts">
     import { defineComponent } from 'vue';
     import  GoogleButton  from './GoogleButton.vue';
+    import {  ActionTypes } from '@/store/modules/profile/actions';
 
     export default defineComponent({
         name: 'Login',
@@ -41,6 +44,9 @@
           
         },
         methods: {
+          changeName() {
+            this.$store.dispatch(`profile/${ActionTypes.SetName}`, 'test');
+          }
         }
     });
 </script>

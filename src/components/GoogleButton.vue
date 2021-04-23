@@ -28,7 +28,7 @@
           ></path>
         </g>
       </svg>
-      authService
+      Sign in with Google
     </a>
   </div>
 </template>
@@ -43,6 +43,7 @@ methods: {
         await this.$gapi.login()
         const auth: { grantOfflineAccess(): Promise<string> } = await this.$gapi.getAuthInstance();
         const { code } = await auth.grantOfflineAccess() as unknown as { code: string };
+        console.log(code);
         this.$authService.post(code);
     },
   },

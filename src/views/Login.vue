@@ -1,13 +1,14 @@
 <template>
   <div id="app">
     <LoginForm/>
+    <p>{{profileName}}</p>
   </div>
 </template>
 
 <script lang="ts">
     import { defineComponent } from 'vue';
     import LoginForm from '../components/LoginForm.vue'
-
+    import { mapGetters } from 'vuex';
     export default defineComponent({
         name: 'Login',
         data(): { }{
@@ -17,7 +18,7 @@
             LoginForm
         },
         computed: {
-
+          ...mapGetters('profile', ['profile', 'profileName']),
         },
         methods: {
 

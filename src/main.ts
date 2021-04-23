@@ -3,6 +3,7 @@ import router from './router/index';
 import VueGapi from 'vue-gapi';
 import ElementPlus from 'element-plus';
 import 'element-plus/lib/theme-chalk/index.css';
+import { store } from "@/store";
 //Services
 import AuthService from './services/AuthService';
 
@@ -19,7 +20,7 @@ const authService: IAuthService = new AuthService();
 const app = createApp(App);
 app.use(router);
 app.use(ElementPlus);
-
+app.use(store);
 app.config.globalProperties.$authService = authService;
 
 app.use(VueGapi, {

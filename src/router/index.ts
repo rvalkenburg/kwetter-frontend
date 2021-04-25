@@ -1,5 +1,6 @@
-import { createWebHistory, createRouter } from 'vue-router'
-import LoginView from '../views/Login.vue'
+import { createWebHistory, createRouter } from 'vue-router';
+import LoginView from '@/views/Login.vue';
+import TimelineView from '@/views/Timeline.vue'
 
 const history = createWebHistory();
 const router = createRouter({
@@ -8,6 +9,10 @@ const router = createRouter({
         {
             path: '/',
             component: LoginView
+        },
+        {
+            path: '/timeline',
+            component: TimelineView
         },
     ]
 })

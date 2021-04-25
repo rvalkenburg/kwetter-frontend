@@ -1,7 +1,6 @@
 <template>
   <div id="app">
     <LoginForm/>
-    <p>{{profileName}}</p>
   </div>
 </template>
 
@@ -18,7 +17,7 @@
             LoginForm
         },
         computed: {
-          ...mapGetters('profile', ['profile', 'profileName']),
+          ...mapGetters('profile', ['user']),
         },
         methods: {
 

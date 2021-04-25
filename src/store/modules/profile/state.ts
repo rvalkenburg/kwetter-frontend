@@ -1,16 +1,9 @@
-export type Profile = {
-    picture: string,
-    description: string,
-    name: string
-};
-
+import { User } from './profile'
 
 export type State = {
-    item: Profile,
-    name: string;
+    user: User,
 }
 
 export const state: State = {
-    item: {} as Profile,
-    name: 'client'
+    user: {} as User,
 }

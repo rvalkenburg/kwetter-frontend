@@ -1,17 +1,12 @@
 import { GetterTree } from 'vuex';
-
-
+import { User } from './profile'
 import { RootState } from '@/store';
-
-import { Profile, State } from './state';
+import { State } from './state';
 
 export type Getters = {
-  profile(state: State): Profile;
-  profileName(state: State): string;
+  user(state: State): User;
 }
 
 export const getters: GetterTree<State, RootState> & Getters = {
-  profile: (state) => state.item,
-  profileName: (state) => state.name,
-
+  user: (state) => state.user,
 };

@@ -4,18 +4,16 @@ import VueGapi from 'vue-gapi';
 import ElementPlus from 'element-plus';
 import 'element-plus/lib/theme-chalk/index.css';
 import { store } from "@/store";
+
 //Services
 import AuthService from './services/AuthService';
 
 //Interfaces
 import IAuthService from './interfaces/IAuthService';
 
-
 import App from './App.vue';
 
-
 const authService: IAuthService = new AuthService();
-
 
 const app = createApp(App);
 app.use(router);
@@ -30,4 +28,3 @@ app.use(VueGapi, {
     scope: 'openid profile email',
   }),
 app.mount('#app');
-console.log(app.config)

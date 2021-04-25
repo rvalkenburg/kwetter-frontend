@@ -2,11 +2,10 @@ import { ActionContext, ActionTree } from 'vuex';
 import { Mutations, MutationType } from './mutations';
 import { State } from './state';
 import { RootState } from '../../index'
+import { User } from './profile';
 
 export enum ActionTypes {
-    GetUser = 'GET_USER',
     SetUser = 'SET_USER',
-    SetName = 'SET_NAME'
 }
 
 type ActionAugments = Omit<ActionContext<State, RootState>, 'commit'> & {
@@ -17,17 +16,17 @@ type ActionAugments = Omit<ActionContext<State, RootState>, 'commit'> & {
 }
 
 export type Actions = {
-    [ActionTypes.SetName](
+    [ActionTypes.SetUser](
         { commit }: ActionAugments,
-        payload: string
+        payload: User
     ): void;
 }
 
 export const actions: ActionTree<State, RootState> & Actions = {
-    [ActionTypes.SetName](
+    [ActionTypes.SetUser](
         { commit }: ActionAugments,
-        payload: string
+        payload: User
     ): void {
-        commit(MutationType.SetName, payload);
+        commit(MutationType.SetUser, payload);
     }
 }

@@ -9,7 +9,7 @@ import {
   
   import { state } from './state';
   import { actions, Actions } from './actions';
-  import { getters, Getters } from './Getters';
+  import { getters, Getters } from './getters';
   import { mutations, Mutations } from './mutations';
   
   import type { State } from './state';

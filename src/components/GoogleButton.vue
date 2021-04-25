@@ -35,6 +35,9 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import { toUser, User } from '@/store/modules/profile/profile';
+import {  ActionTypes } from '@/store/modules/profile/actions';
+import AuthDto from '@/models/AuthDto'
 
 export default defineComponent({
 name: "GoogleButton",
@@ -43,8 +46,13 @@ methods: {
         await this.$gapi.login()
         const auth: { grantOfflineAccess(): Promise<string> } = await this.$gapi.getAuthInstance();
         const { code } = await auth.grantOfflineAccess() as unknown as { code: string };
-        console.log(code);
-        this.$authService.post(code);
+        const authDto: AuthDto = await this.$authService.post(code);
+        console.log(authDto);
+                console.log(authDto.idToken);
+        const user: User = toUser(authDto);
+        console.log(user);
+        this.$store.dispatch(`profile/${ActionTypes.SetUser}`, user);
+        //this.$router.push('/Home');
     },
   },
 });

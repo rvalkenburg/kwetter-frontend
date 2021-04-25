@@ -4,20 +4,18 @@ import axios from "axios";
 
 export default class AuthService implements IAuthService {
 	public async post(code: string): Promise<AuthDto> {
-        const options = {
-            method: 'POST',
-            headers: {
-              'Accept': 'application/json',
-            },
-            body: {
-                code: code
-            }
+        const body = {
+             code: code 
         }
-		const response = await axios.post("http://localhost:5001/api/auth", options)
-        const queryResponse: AuthDto = await response.data;
-        console.log(response);
-        console.log(queryResponse);
-
-        return queryResponse;
+        const options = {
+            headers: {
+                'Access-Control-Allow-Origin': '*',
+                'Content-Type': 'application/json',
+            },
+            
+        }
+		const response = await axios.post("http://localhost:5500/api/auth", body, options)
+        const authDto: AuthDto = response.data.data;
+        return authDto;
     }
 }

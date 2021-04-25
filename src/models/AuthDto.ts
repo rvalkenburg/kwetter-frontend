@@ -1,9 +1,9 @@
 export default interface AuthDto {
-    access_token: string;
-    refresh_token: string;
+    accessToken: string;
+    refreshToken: string;
     scope: string;
-    id_token: string;
-    token_type: string;
-    expires_in: string;
-    user_id: string;
+    idToken: string;
+    tokenType: string;
+    expiresIn: string;
+    userId: string;
 }

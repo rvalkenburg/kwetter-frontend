@@ -10,13 +10,13 @@
       <span>#ProgammersLifeMatter</span>
     </el-menu-item>
     <el-menu-item index="2">
-      <span>#FreeNavalny</span>
+      <span>#Fontys</span>
     </el-menu-item>
     <el-menu-item index="3">
-      <span>#NOSIsFakeNews</span>
+      <span>#Semester6</span>
     </el-menu-item>
     <el-menu-item index="4">
-      <span>#GreatReset</span>
+      <span>#kwetter</span>
     </el-menu-item>
   </el-menu>
 </template>

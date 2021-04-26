@@ -1,0 +1,35 @@
+<template>
+  <el-menu
+    default-active="2"
+    class="el-menu-vertical-demo"
+    @open="handleOpen"
+    @close="handleClose"
+    style="text-align: left"
+  >
+    <el-menu-item index="1">
+      <span>#ProgammersLifeMatter</span>
+    </el-menu-item>
+    <el-menu-item index="2">
+      <span>#FreeNavalny</span>
+    </el-menu-item>
+    <el-menu-item index="3">
+      <span>#NOSIsFakeNews</span>
+    </el-menu-item>
+    <el-menu-item index="4">
+      <span>#GreatReset</span>
+    </el-menu-item>
+  </el-menu>
+</template>
+
+<script lang="ts">
+import { defineComponent } from "vue";
+
+export default defineComponent({
+  name: "VerticalNavbar",
+  data(): {} {
+    return {
+      input: "",
+    };
+  },
+});
+</script>

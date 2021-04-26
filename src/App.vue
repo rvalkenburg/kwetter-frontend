@@ -1,7 +1,25 @@
   
 <template>
+  <navbar />
   <router-view />
 </template>
+
+<script lang="ts">
+import { defineComponent } from "vue";
+import Navbar from "@/components/Navbar.vue";
+
+export default defineComponent({
+  name: "Timeline",
+  data(): {} {
+    return {};
+  },
+  components: {
+    Navbar,
+  },
+  computed: {},
+  methods: {},
+});
+</script>
 
 <style lang="scss">
 #app {

@@ -53,7 +53,7 @@ export default defineComponent({
       const authDto: AuthDto = await this.$authService.post(code);
       const user: User = toUser(authDto);
       this.$store.dispatch(`profile/${ActionTypes.SetUser}`, user);
-      this.$router.push("/profile");
+      this.$router.push("/timeline");
     },
   },
 });

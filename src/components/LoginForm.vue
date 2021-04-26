@@ -33,8 +33,6 @@ export default defineComponent({
   components: {
     GoogleButton,
   },
-  computed: {},
-  methods: {},
 });
 </script>
 

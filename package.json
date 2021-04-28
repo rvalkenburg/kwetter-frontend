@@ -20,6 +20,7 @@
     "vue-property-decorator": "10.0.0-rc.3",
     "vue-router": "^4.0.6",
     "vuex": "^4.0.0",
+    "vuex-extensions": "^1.1.5",
     "vuex-persistedstate": "^4.0.0-beta.3"
   },
   "devDependencies": {

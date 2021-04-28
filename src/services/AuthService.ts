@@ -2,6 +2,8 @@ import IAuthService from '../interfaces/IAuthService'
 import AuthDto from '../models/AuthDto'
 import axios from "axios";
 
+const baseUrl = process.env.VUE_APP_BASEURL
+
 export default class AuthService implements IAuthService {
 	public async post(code: string): Promise<AuthDto> {
         const body = {
@@ -14,7 +16,7 @@ export default class AuthService implements IAuthService {
             },
             
         }
-		const response = await axios.post("http://localhost:5500/api/auth", body, options)
+		const response = await axios.post(baseUrl + ":5500/api/auth", body, options)
         const authDto: AuthDto = response.data.data;
         return authDto;
     }

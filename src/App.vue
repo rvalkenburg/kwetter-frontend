@@ -1,22 +1,24 @@
-  
 <template>
-  <navbar />
+  <navbar v-if="user !== null" />
   <router-view />
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
 import Navbar from "@/components/Navbar.vue";
+import { mapGetters } from "vuex";
 
 export default defineComponent({
-  name: "Timeline",
+  name: "App",
   data(): {} {
     return {};
   },
   components: {
     Navbar,
   },
-  computed: {},
+  computed: {
+    ...mapGetters("profile", ["user"]),
+  },
   methods: {},
 });
 </script>

@@ -11,6 +11,7 @@
 import { defineComponent } from "vue";
 import { mapGetters } from "vuex";
 import firebase from "firebase";
+import { ActionTypes } from "@/store/modules/profile/actions";
 
 export default defineComponent({
   name: "Navbar",
@@ -34,6 +35,7 @@ export default defineComponent({
         .auth()
         .signOut()
         .then(() => {
+          this.$store.dispatch(`profile/${ActionTypes.SetUser}`, null);
           this.$router.push("/");
         });
     },

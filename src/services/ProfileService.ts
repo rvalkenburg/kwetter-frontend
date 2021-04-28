@@ -2,6 +2,8 @@ import AuthDto from '../models/AuthDto'
 import axios from "axios";
 import IProfileService from '@/interfaces/IProfileService';
 
+const baseUrl = process.env.VUE_APP_BASEURL_PROFILE;
+
 export default class ProfileService implements IProfileService {
 	public async post(avatar: string, displayName: string, email: string): Promise<AuthDto> {
         const body = {
@@ -15,7 +17,7 @@ export default class ProfileService implements IProfileService {
             },
             
         }
-		const response = await axios.post("http://localhost:5000/api/profile", body, options)
+		const response = await axios.post(baseUrl + "/api/profile", body, options)
         const authDto: AuthDto = response.data.data;
         return authDto;
     }

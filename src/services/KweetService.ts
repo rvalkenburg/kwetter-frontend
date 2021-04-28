@@ -1,6 +1,8 @@
 import AuthDto from '../models/AuthDto'
 import axios from "axios";
 
+const baseUrl = process.env.VUE_APP_BASEURL_KWEET;
+
 export default class IKweetService implements IKweetService {
 	public async post(avatar: string, displayName: string, email: string): Promise<AuthDto> {
         const body = {

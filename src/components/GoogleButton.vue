@@ -59,10 +59,9 @@ export default defineComponent({
                 user.profile.email
               );
             }
+            this.$router.push("/timeline");
           }
-          this.$router.push("/timeline");
         });
-      // const authDto: AuthDto = await this.$authService.post(code);
     },
   },
 });

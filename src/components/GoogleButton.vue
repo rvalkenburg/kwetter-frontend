@@ -35,29 +35,35 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { toUser, User } from "@/store/modules/profile/profile";
+import firebase from "firebase";
+import { toUser } from "@/store/modules/profile/profile";
+import { User } from "@/store/modules/profile/profile";
 import { ActionTypes } from "@/store/modules/profile/actions";
-import AuthDto from "@/models/AuthDto";
 
 export default defineComponent({
   name: "GoogleButton",
   methods: {
     async loginWithGoogle() {
-      await this.$gapi.login();
-      const auth: {
-        grantOfflineAccess(): Promise<string>;
-      } = await this.$gapi.getAuthInstance();
-      const { code } = ((await auth.grantOfflineAccess()) as unknown) as {
-        code: string;
-      };
-      const authDto: AuthDto = await this.$authService.post(code);
-      const user: User = toUser(authDto);
-      this.$store.dispatch(`profile/${ActionTypes.SetUser}`, user);
-      this.$router.push("/timeline");
+      const provider = new firebase.auth.GoogleAuthProvider();
+      firebase
+        .auth()
+        .signInWithPopup(provider)
+        .then((result) => {
+          if (result.user !== null) {
+            const user: User = toUser(result.user);
+            this.$store.dispatch(`profile/${ActionTypes.SetUser}`, user);
+            if (result.additionalUserInfo?.isNewUser) {
+              this.$profileService.post(
+                user.profile.picture,
+                user.profile.name,
+                user.profile.email
+              );
+            }
+          }
+          this.$router.push("/timeline");
+        });
+      // const authDto: AuthDto = await this.$authService.post(code);
     },
   },
 });
 </script>
-
-<style>
-</style>

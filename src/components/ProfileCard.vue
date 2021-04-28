@@ -1,16 +1,10 @@
 <template>
   <el-card style="min-height: 100px" class="box-card">
     <el-row>
-      <el-avatar
-        class="center"
-        :size="150"
-        :src="user.profile.picture"
-      ></el-avatar>
+      <el-avatar class="center" :size="150" :src="url"></el-avatar>
     </el-row>
     <el-row>
-      <span style="padding-top: 3%" class="center">{{
-        user.profile.name
-      }}</span>
+      <span style="padding-top: 3%" class="center">Roger</span>
     </el-row>
   </el-card>
   <el-card style="min-height: 100px" class="box-card">

@@ -1,9 +1,9 @@
-import  AuthDto from '@/models/AuthDto';
 import jwtDecode, { JwtPayload } from "jwt-decode";
+import firebase from 'firebase'
 
 export type User = {
     profile: Profile,
-    authentication: Authentication
+    //authentication: Authentication
 };
 
 export type Profile = {
@@ -13,43 +13,22 @@ export type Profile = {
     name: string
 };
 
-export type Authentication = {
-    token_type: string,
-    access_token: string,
-    id_token: string,
-    expires_at: number,
-    expires_in: number
-};
+// export type Authentication = {
+//     token_type: string,
+//     access_token: string,
+//     id_token: string,
+//     expires_at: number,
+//     expires_in: number
+// };
 
-export function toUser(authDto: AuthDto): User {
-    const payload: GoogleJwtPayload = jwtDecode<GoogleJwtPayload>(authDto.idToken);
+export function toUser(firebaseUser: firebase.User): User {
     const user: User = {
         profile: {
-            id: authDto.userId,
-            name: payload.name,
-            picture: payload.picture,
-            email: payload.email
+            id: firebaseUser.uid,
+            name: firebaseUser.displayName != null ? firebaseUser.displayName : '',
+            picture: firebaseUser.photoURL != null ? firebaseUser.photoURL : '',
+            email: firebaseUser.email != null ? firebaseUser.email : '',
         },
-        authentication: {
-            token_type: authDto.tokenType,
-            access_token: authDto.accessToken,
-            expires_at: payload.iat,
-            expires_in: payload.exp,
-            id_token: authDto.idToken
-        }
     }
     return user;
-}
-
-interface GoogleJwtPayload extends JwtPayload {
-    email: string;
-    email_verified: boolean;
-    azp: string;
-    at_hash: string;
-    name: string;
-    picture: string;
-    given_name: string;
-    locale: string;
-    iat: number;
-    exp: number;
 }

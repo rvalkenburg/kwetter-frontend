@@ -2,8 +2,6 @@
   <el-menu
     default-active="2"
     class="el-menu-vertical-demo"
-    @open="handleOpen"
-    @close="handleClose"
     style="text-align: left"
   >
     <el-menu-item index="1">

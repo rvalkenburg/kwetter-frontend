@@ -50,15 +50,16 @@ export default defineComponent({
         .signInWithPopup(provider)
         .then((result) => {
           if (result.user !== null) {
-            const user: User = toUser(result.user);
-            this.$store.dispatch(`profile/${ActionTypes.SetUser}`, user);
             if (result.additionalUserInfo?.isNewUser) {
               this.$profileService.post(
-                user.profile.picture,
-                user.profile.name,
-                user.profile.email
+                result.user.photoURL != null ? result.user.photoURL : "",
+                result.user.displayName != null ? result.user.displayName : "",
+                result.user.email != null ? result.user.email : "",
+                result.user.uid != null ? result.user.uid : ""
               );
             }
+            const user: User = toUser(result.user);
+            this.$store.dispatch(`profile/${ActionTypes.SetUser}`, user);
             this.$router.push("/timeline");
           }
         });

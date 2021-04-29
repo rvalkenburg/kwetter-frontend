@@ -1,5 +1,5 @@
-import ProfileDto from '@/models/ProfileDto';
+import ProfileDto from '@/models/AuthDto';
 
 export default interface IAuthService {
-    post(code: string): Promise<ProfileDto>;
+    post(code: string): Promise<AuthDto>;
 }

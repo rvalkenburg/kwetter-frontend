@@ -2,12 +2,16 @@ import { createStore, createLogger } from 'vuex';
 import createPersistedState from 'vuex-persistedstate';
 
 import { store as profile, ProfileStore, State as ProfileState } from '@/store/modules/profile';
+import { store as kweet, KweetStore, State as KweetState } from '@/store/modules/kweet';
+
 
 export type RootState = {
   profile: ProfileState;
+  kweet: KweetState
 };
 
-export type Store = ProfileStore<Pick<RootState, 'profile'>>;
+export type Store = ProfileStore<Pick<RootState, 'profile'>> & KweetStore<Pick<RootState, 'kweet'>>;
+
 
 const debug = process.env.NODE_ENV !== 'production';
 const plugins = debug ? [createLogger({})] : [];
@@ -18,6 +22,7 @@ export const store = createStore({
   plugins,
   modules: {
     profile,
+    kweet
   },
 });
 

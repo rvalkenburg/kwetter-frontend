@@ -1,18 +1,17 @@
 import { GetterTree } from 'vuex';
-import { User } from './profile'
+import { Kweet } from './kweet'
 import { RootState } from '@/store';
 import { State } from './state';
 
 export type Getters = {
-  user(state: State): User | null;
+  kweets(state: State): Kweet[] | null;
 }
 
 export const getters: GetterTree<State, RootState> & Getters = {
-  user: (state) => {
-    if(state.user != null){
-      return state.user
+    kweets: (state) => {
+    if(state.kweets != null){
+      return state.kweets
     }
     return null;
   }
-  
 };

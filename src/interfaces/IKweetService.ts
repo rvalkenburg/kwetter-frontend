@@ -1,5 +1,6 @@
-import AuthDto from '../models/AuthDto'
+import KweetDto from '@/models/KweetDto';
 
 export default interface IKweetService {
-    post(avatar: string, displayName: string, email: string): Promise<AuthDto>;
+    post(message: string, userId: string): Promise<KweetDto>;
+    get(userId: string): Promise<Array<KweetDto>>
 }

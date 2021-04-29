@@ -30,7 +30,7 @@ export default defineComponent({
       if (!this.input || this.input.trim() === "") {
         return;
       } else {
-        //create kweet
+        this.$kweetService.post(this.user.profile.id, this.input);
       }
     },
   },

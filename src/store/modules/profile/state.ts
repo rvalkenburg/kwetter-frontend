@@ -1,9 +1,9 @@
 import { User } from './profile'
 
 export type State = {
-    user: User,
+    user: User | null,
 }
 
 export const state: State = {
-    user: {} as User,
+    user: null
 }

@@ -1,14 +1,25 @@
-import AuthDto from '../models/AuthDto'
 import axios from "axios";
+import KweetDto from '@/models/KweetDto';
+import IKweetService from '@/interfaces/IKweetService'
 
 const baseUrl = process.env.VUE_APP_BASEURL_KWEET;
 
-export default class IKweetService implements IKweetService {
-	public async post(avatar: string, displayName: string, email: string): Promise<AuthDto> {
+export default class KweetService implements IKweetService {
+    public async get(userId: string): Promise<KweetDto[]> {
+        const options = {
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            
+        }
+		const response = await axios.get(baseUrl + "/api/kweet" + userId, options)
+        const KweetDto: Array<KweetDto> = response.data.data;
+        return KweetDto;
+    }
+	public async post(userId: string, message: string): Promise<KweetDto> {
         const body = {
-            avatar: avatar,
-            displayName:  displayName,
-            email: email
+            message: message,
+            userId:  userId,
         }
         const options = {
             headers: {
@@ -16,8 +27,8 @@ export default class IKweetService implements IKweetService {
             },
             
         }
-		const response = await axios.post("http://localhost:5000/api/profile", body, options)
-        const authDto: AuthDto = response.data.data;
-        return authDto;
+		const response = await axios.post(baseUrl + "/api/kweet", body, options)
+        const KweetDto: KweetDto = response.data.data;
+        return KweetDto;
     }
 }

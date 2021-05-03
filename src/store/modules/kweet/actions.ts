@@ -3,9 +3,11 @@ import { Mutations, MutationType } from './mutations';
 import { State } from './state';
 import { RootState } from '../../index'
 import { Kweet } from './kweet';
+import { state } from '../profile/state';
 
 export enum ActionTypes {
     SET_KWEETS = 'SET_KWEETS',
+    ADD_KWEET = 'ADD_KWEET',
 }
 
 type ActionAugments = Omit<ActionContext<State, RootState>, 'commit'> & {
@@ -20,6 +22,10 @@ export type Actions = {
         { commit }: ActionAugments,
         payload: Kweet[]
     ): void;
+    [ActionTypes.ADD_KWEET](
+        { commit }: ActionAugments,
+        payload: Kweet
+    ): void;
 }
 
 export const actions: ActionTree<State, RootState> & Actions = {
@@ -27,6 +33,13 @@ export const actions: ActionTree<State, RootState> & Actions = {
         { commit }: ActionAugments,
         payload: Kweet[]
     ): void {
-        commit(MutationType.SetKweets, payload);
-    }
+        console.log(payload)
+        commit(MutationType.SET_KWEETS, payload);
+    },
+    [ActionTypes.ADD_KWEET](
+        { commit }: ActionAugments,
+        payload: Kweet
+    ): void {
+        commit(MutationType.ADD_KWEET, payload);
+    },
 }

@@ -3,33 +3,25 @@
     <el-row>
       <div style="display: flex; align-items: center">
         <el-col :span="8">
-          <el-avatar :size="60" :src="url"></el-avatar>
+          <el-avatar :size="60" :src="avatar"></el-avatar>
         </el-col>
         <el-col :span="18">
-          <span style="display: Inline-Block">Roger Valkenburg </span>
+          <span style="display: Inline-Block">{{ displayName }} </span>
         </el-col>
       </div>
     </el-row>
     <el-divider class="divide-space" content-position="center"></el-divider>
     <el-row>
       <div class="text">
-        Lorem Ipsum is simply dummy text of the printing and typesetting
-        industry. Lorem Ipsum has been the industry's standard dummy text ever
-        since the 1500s, when an unknown printer took a galley of type and
-        scrambled it to make a type specimen book. It has survived not only five
-        centuries, but also the leap into electronic typesetting, remaining
-        essentially unchanged. It was popularised in the 1960s with the release
-        of Letraset sheets containing Lorem Ipsum passages, and more recently
-        with desktop publishing software like Aldus PageMaker including versions
-        of Lorem Ipsum.
+        {{ message }}
       </div>
     </el-row>
     <el-divider class="divide-space" content-position="center"></el-divider>
     <el-row>
       <el-col :span="24">
         <div style="float: right">
-          <el-badge :value="12" class="item">
-            <el-button size="small">Like</el-button>
+          <el-badge :value="likesCount" class="item">
+            <el-button @click="pressedLikeKweet()" size="small">Like</el-button>
           </el-badge>
         </div>
       </el-col>
@@ -38,16 +30,63 @@
 </template>
 
 <script lang="ts">
+import { mapGetters } from "vuex";
 import { defineComponent } from "vue";
-
+import { PropType } from "vue";
+import { Like } from "@/store/modules/kweet/kweet";
 export default defineComponent({
   name: "Kweet",
-  data(): {} {
+  props: {
+    id: String,
+    message: String,
+    displayName: String,
+    avatar: String,
+    likes: Array as PropType<Like[]>,
+  },
+  data(): { userLikedKweet: number } {
     return {
-      text: "This is a kweet made by Roger",
-      url:
-        "https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg",
+      userLikedKweet: 0,
     };
+  },
+  computed: {
+    ...mapGetters("profile", ["user"]),
+    ...mapGetters("kweet", ["kweets"]),
+
+    alreadyLiked(): boolean {
+      // if (this.likes !== undefined) {
+      //   const isLiked: LikeDto = this.likes.find(
+      //     (x) => x.profile.id == this.user.id
+      //   ) as LikeDto;
+      //   if (isLiked != null) {
+      //     return true;
+      //   }
+      // }
+      return false;
+    },
+    likesCount(): number {
+      var defaultLikes: number = 0;
+      if (this.likes !== undefined) {
+        defaultLikes = this.likes.length;
+      }
+      defaultLikes = defaultLikes + this.$data.userLikedKweet;
+      return defaultLikes;
+    },
+  },
+  methods: {
+    async pressedLikeKweet() {
+      if (!this.alreadyLiked) {
+        await this.$likeService.like(this.user.id, this.id);
+        this.$data.userLikedKweet = 1;
+      } else {
+        if (this.likes !== undefined) {
+          // const like: LikeDto = this.likes.find(
+          //   (x) => x.profile.id == this.user.id
+          // ) as LikeDto;
+          // this.$likeService.unLike(like.id);
+          this.$data.userLikedKweet = 0;
+        }
+      }
+    },
   },
 });
 </script>
@@ -56,7 +95,7 @@ export default defineComponent({
   display: flex;
   width: 100%;
   border: 1px solid rgb(177, 177, 177);
-  min-height: 10%;
+  min-height: 50px;
   padding: 5px;
   text-align: left;
 }

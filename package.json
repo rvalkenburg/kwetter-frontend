@@ -17,6 +17,7 @@
     "vue": "3.0.11",
     "vue-class-component": "^8.0.0-0",
     "vue-gapi": "^2.0.0-beta.1",
+    "vue-infinite-scroll": "^2.0.2",
     "vue-property-decorator": "10.0.0-rc.3",
     "vue-router": "^4.0.6",
     "vuex": "^4.0.0",

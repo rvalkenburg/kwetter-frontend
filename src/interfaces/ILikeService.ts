@@ -1,0 +1,6 @@
+import LikeDto from '@/models/LikeDto';
+
+export default interface IKweetService {
+    like(profileId: string, kweetId: string): Promise<LikeDto>;
+    unLike(likeId: string): Promise<LikeDto>
+}

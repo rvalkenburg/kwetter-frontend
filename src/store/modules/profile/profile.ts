@@ -1,4 +1,4 @@
-import firebase from 'firebase'
+import ProfileDto from '@/models/ProfileDto';
 
 export type User = {
     profile: Profile,
@@ -11,13 +11,13 @@ export type Profile = {
     name: string
 };
 
-export function toUser(firebaseUser: firebase.User): User {
+export function toUser(profileDto: ProfileDto): User {
     const user: User = {
         profile: {
-            id: firebaseUser.uid,
-            name: firebaseUser.displayName != null ? firebaseUser.displayName : '',
-            picture: firebaseUser.photoURL != null ? firebaseUser.photoURL : '',
-            email: firebaseUser.email != null ? firebaseUser.email : '',
+            name: profileDto.displayName,
+            picture: profileDto.avatar,
+            id: profileDto.id,
+            email: '',
         },
     }
     return user;

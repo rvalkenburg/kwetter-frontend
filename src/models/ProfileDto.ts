@@ -1,5 +1,5 @@
 export default interface ProfileDto {
     displayName: string;
-    picture: string;
-    userId: string;
+    avatar: string;
+    id: string;
 }

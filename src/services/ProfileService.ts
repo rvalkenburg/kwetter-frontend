@@ -5,6 +5,22 @@ import ProfileDto from '@/models/ProfileDto';
 const baseUrl = process.env.VUE_APP_BASEURL_PROFILE;
 
 export default class ProfileService implements IProfileService {
+    public async update(displayName: string, email: string, googleId: string): Promise<ProfileDto> {
+        const body = {
+            displayName:  displayName,
+            email: email,
+            googleId: googleId
+        }
+        const options = {
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            
+        }
+		const response = await axios.put(baseUrl + "/api/profile", body, options)
+        const profileDto: ProfileDto = response.data;
+        return profileDto;
+    }
     public async get(userId: string): Promise<ProfileDto> {
         const options = {
             headers: {

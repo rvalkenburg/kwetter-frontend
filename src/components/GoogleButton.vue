@@ -36,8 +36,6 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import firebase from "firebase";
-import { toUser } from "@/store/modules/profile/profile";
-import { User } from "@/store/modules/profile/profile";
 import { ActionTypes } from "@/store/modules/profile/actions";
 
 export default defineComponent({
@@ -45,24 +43,26 @@ export default defineComponent({
   methods: {
     async loginWithGoogle() {
       const provider = new firebase.auth.GoogleAuthProvider();
-      firebase
-        .auth()
-        .signInWithPopup(provider)
-        .then((result) => {
-          if (result.user !== null) {
-            if (result.additionalUserInfo?.isNewUser) {
-              this.$profileService.post(
-                result.user.photoURL != null ? result.user.photoURL : "",
-                result.user.displayName != null ? result.user.displayName : "",
-                result.user.email != null ? result.user.email : "",
-                result.user.uid != null ? result.user.uid : ""
-              );
-            }
-            const user: User = toUser(result.user);
-            this.$store.dispatch(`profile/${ActionTypes.SetUser}`, user);
-            this.$router.push("/timeline");
-          }
-        });
+      const result = await firebase.auth().signInWithPopup(provider);
+      if (result.user !== null) {
+        if (result.additionalUserInfo?.isNewUser) {
+          const profile = await this.$profileService.post(
+            result.user.photoURL != null ? result.user.photoURL : "",
+            result.user.displayName != null ? result.user.displayName : "",
+            result.user.email != null ? result.user.email : "",
+            result.user.uid != null ? result.user.uid : ""
+          );
+          this.$store.dispatch(`profile/${ActionTypes.SetUser}`, profile);
+        } else {
+          const profile = await this.$profileService.update(
+            result.user.displayName != null ? result.user.displayName : "",
+            result.user.email != null ? result.user.email : "",
+            result.user.uid != null ? result.user.uid : ""
+          );
+          this.$store.dispatch(`profile/${ActionTypes.SetUser}`, profile);
+        }
+        this.$router.push("/timeline");
+      }
     },
   },
 });

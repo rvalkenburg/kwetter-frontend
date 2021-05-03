@@ -5,21 +5,26 @@ import IKweetService from '@/interfaces/IKweetService'
 const baseUrl = process.env.VUE_APP_BASEURL_KWEET;
 
 export default class KweetService implements IKweetService {
-    public async get(userId: string): Promise<KweetDto[]> {
+    public async get(pageNumer: number, pageSize: number, userId: string): Promise<KweetDto[]> {
         const options = {
             headers: {
                 'Content-Type': 'application/json',
             },
+            params: {
+                pageNumber: pageNumer,
+                pageSize: pageSize,
+                profileId: userId,
+            }
             
         }
-		const response = await axios.get(baseUrl + "/api/kweet" + userId, options)
-        const KweetDto: Array<KweetDto> = response.data.data;
+		const response = await axios.get(baseUrl + "/api/kweet", options)
+        const KweetDto: KweetDto[] = response.data.data;
         return KweetDto;
     }
 	public async post(userId: string, message: string): Promise<KweetDto> {
         const body = {
             message: message,
-            userId:  userId,
+            ProfileId:  userId,
         }
         const options = {
             headers: {

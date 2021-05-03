@@ -8,11 +8,6 @@ export type Getters = {
 }
 
 export const getters: GetterTree<State, RootState> & Getters = {
-  user: (state) => {
-    if(state.user != null){
-      return state.user
-    }
-    return null;
-  }
+  user: (state) => { return state.user }
   
 };

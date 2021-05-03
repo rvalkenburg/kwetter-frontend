@@ -13,5 +13,5 @@ export const getters: GetterTree<State, RootState> & Getters = {
       return state.kweets
     }
     return null;
-  }
+  },
 };

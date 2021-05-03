@@ -13,10 +13,9 @@ export type RootState = {
 export type Store = ProfileStore<Pick<RootState, 'profile'>> & KweetStore<Pick<RootState, 'kweet'>>;
 
 
-const debug = process.env.NODE_ENV !== 'production';
-const plugins = debug ? [createLogger({})] : [];
+const plugins = [];
 
-plugins.push(createPersistedState({ storage: window.sessionStorage }));
+plugins.push(createPersistedState({ storage: window.sessionStorage, paths: ['profile'] } ));
 
 export const store = createStore({
   plugins,

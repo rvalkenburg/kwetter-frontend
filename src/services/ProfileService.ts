@@ -21,14 +21,14 @@ export default class ProfileService implements IProfileService {
         const profileDto: ProfileDto = response.data;
         return profileDto;
     }
-    public async get(userId: string): Promise<ProfileDto> {
+    public async get(id: string): Promise<ProfileDto> {
         const options = {
             headers: {
                 'Content-Type': 'application/json',
             },
             
         }
-		const response = await axios.get(baseUrl + "/api/kweet" + userId, options)
+		const response = await axios.get(baseUrl + "/api/profile/" + id, options)
         const profileDto: ProfileDto = response.data.data;
         return profileDto;
     }

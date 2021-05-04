@@ -3,24 +3,26 @@
     <el-row>
       <div style="display: flex; align-items: center">
         <el-col :span="8">
-          <el-avatar :size="60" :src="avatar"></el-avatar>
+          <el-avatar :size="60" :src="kweet.profile.avatar"></el-avatar>
         </el-col>
         <el-col :span="18">
-          <span style="display: Inline-Block">{{ displayName }} </span>
+          <span style="display: Inline-Block"
+            >{{ kweet.profile.displayName }}
+          </span>
         </el-col>
       </div>
     </el-row>
     <el-divider class="divide-space" content-position="center"></el-divider>
     <el-row>
       <div class="text">
-        {{ message }}
+        {{ kweet.message }}
       </div>
     </el-row>
     <el-divider class="divide-space" content-position="center"></el-divider>
     <el-row>
       <el-col :span="24">
         <div style="float: right">
-          <el-badge :value="likesCount" class="item">
+          <el-badge :value="likeCount" class="item">
             <el-button @click="pressedLikeKweet()" size="small">Like</el-button>
           </el-badge>
         </div>
@@ -33,15 +35,13 @@
 import { mapGetters } from "vuex";
 import { defineComponent } from "vue";
 import { PropType } from "vue";
-import { Like } from "@/store/modules/kweet/kweet";
+import { Kweet } from "@/store/modules/kweet/kweet";
+import { ActionTypes } from "@/store/modules/kweet/actions";
+
 export default defineComponent({
   name: "Kweet",
   props: {
-    id: String,
-    message: String,
-    displayName: String,
-    avatar: String,
-    likes: Array as PropType<Like[]>,
+    kweet: Object as PropType<Kweet>,
   },
   data(): { userLikedKweet: number } {
     return {
@@ -50,40 +50,36 @@ export default defineComponent({
   },
   computed: {
     ...mapGetters("profile", ["user"]),
-    ...mapGetters("kweet", ["kweets"]),
-
-    alreadyLiked(): boolean {
-      // if (this.likes !== undefined) {
-      //   const isLiked: LikeDto = this.likes.find(
-      //     (x) => x.profile.id == this.user.id
-      //   ) as LikeDto;
-      //   if (isLiked != null) {
-      //     return true;
-      //   }
-      // }
-      return false;
-    },
-    likesCount(): number {
-      var defaultLikes: number = 0;
-      if (this.likes !== undefined) {
-        defaultLikes = this.likes.length;
+    likeCount(): number {
+      if (this.kweet?.like.count !== undefined) {
+        return this.kweet?.like.count;
       }
-      defaultLikes = defaultLikes + this.$data.userLikedKweet;
-      return defaultLikes;
+      return 0;
     },
   },
   methods: {
-    async pressedLikeKweet() {
-      if (!this.alreadyLiked) {
-        await this.$likeService.like(this.user.id, this.id);
-        this.$data.userLikedKweet = 1;
-      } else {
-        if (this.likes !== undefined) {
-          // const like: LikeDto = this.likes.find(
-          //   (x) => x.profile.id == this.user.id
-          // ) as LikeDto;
-          // this.$likeService.unLike(like.id);
-          this.$data.userLikedKweet = 0;
+    async pressedLikeKweet(): Promise<void> {
+      if (this.kweet !== undefined) {
+        if (this.kweet?.like.liked == false) {
+          await this.$likeService.like(this.user.id, this.kweet.id);
+          const updatedKweet: Kweet = this.kweet;
+          updatedKweet.like.liked = true;
+          updatedKweet.like.count += 1;
+          this.$store.dispatch(
+            `kweet/${ActionTypes.UPDATE_KWEET}`,
+            updatedKweet
+          );
+          return;
+        } else {
+          await this.$likeService.unLike(this.user.id, this.kweet.id);
+          const updatedKweet: Kweet = this.kweet;
+          updatedKweet.like.liked = false;
+          updatedKweet.like.count -= 1;
+          this.$store.dispatch(
+            `kweet/${ActionTypes.UPDATE_KWEET}`,
+            updatedKweet
+          );
+          return;
         }
       }
     },

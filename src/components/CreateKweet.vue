@@ -14,6 +14,7 @@
 <script lang="ts">
 import KweetDto from "@/models/KweetDto";
 import { ActionTypes } from "@/store/modules/kweet/actions";
+import { toKweet } from "@/store/modules/kweet/kweet";
 import { defineComponent } from "vue";
 import { mapGetters } from "vuex";
 
@@ -28,7 +29,7 @@ export default defineComponent({
     ...mapGetters("profile", ["user"]),
   },
   methods: {
-    async createKweet() {
+    async createKweet(): Promise<void> {
       if (!this.input || this.input.trim() === "") {
         return;
       } else {
@@ -36,8 +37,8 @@ export default defineComponent({
           this.user.id,
           this.input
         );
-
-        this.$store.dispatch(`kweet/${ActionTypes.ADD_KWEET}`, kweet);
+        this.$data.input = "";
+        this.$store.dispatch(`kweet/${ActionTypes.ADD_KWEET}`, toKweet(kweet));
       }
     },
   },

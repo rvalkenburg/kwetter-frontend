@@ -4,14 +4,12 @@ import { RootState } from '@/store';
 import { State } from './state';
 
 export type Getters = {
-  kweets(state: State): Kweet[] | null;
+  kweets(state: State): Kweet[];
 }
 
 export const getters: GetterTree<State, RootState> & Getters = {
     kweets: (state) => {
-    if(state.kweets != null){
       return state.kweets
-    }
-    return null;
+
   },
 };

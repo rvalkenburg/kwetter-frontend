@@ -42,6 +42,9 @@ export default defineComponent({
   name: "GoogleButton",
   methods: {
     async loginWithGoogle() {
+      await firebase
+        .auth()
+        .setPersistence(firebase.auth.Auth.Persistence.SESSION);
       const provider = new firebase.auth.GoogleAuthProvider();
       const result = await firebase.auth().signInWithPopup(provider);
       if (result.user !== null) {

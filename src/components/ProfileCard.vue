@@ -16,7 +16,6 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { mapGetters } from "vuex";
 
 export default defineComponent({
   name: "ProfileCard",
@@ -24,12 +23,6 @@ export default defineComponent({
     description: String,
     displayName: String,
     avatar: String,
-  },
-  data(): {} {
-    return {};
-  },
-  computed: {
-    ...mapGetters("profile", ["user"]),
   },
 });
 </script>

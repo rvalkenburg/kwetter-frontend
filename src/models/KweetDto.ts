@@ -5,6 +5,6 @@ export default interface KweetDto {
     message: string;
     dateOfCreation: string;
     profile: ProfileDto;
-    LikeCount: number;
+    likeCount: number;
     isLiked: Boolean;
 }

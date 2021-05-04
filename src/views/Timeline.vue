@@ -6,10 +6,10 @@
       </el-col>
       <el-col :span="10">
         <CreateKweet />
-        <Kweet />
+        <!-- <Kweet /> -->
       </el-col>
       <el-col style="padding-left: 5px" :span="7">
-        <ProfileCard />
+        <!-- <ProfileCard /> -->
       </el-col>
     </el-row>
   </div>
@@ -19,8 +19,8 @@
 import { defineComponent } from "vue";
 import CreateKweet from "@/components/CreateKweet.vue";
 import VerticalNavbar from "@/components/VerticalNavbar.vue";
-import Kweet from "@/components/Kweet.vue";
-import ProfileCard from "@/components/ProfileCard.vue";
+// import Kweet from "@/components/Kweet.vue";
+// import ProfileCard from "@/components/ProfileCard.vue";
 
 export default defineComponent({
   name: "Timeline",
@@ -30,8 +30,8 @@ export default defineComponent({
   components: {
     CreateKweet,
     VerticalNavbar,
-    Kweet,
-    ProfileCard,
+    // Kweet,
+    // ProfileCard,
   },
   computed: {},
   methods: {},

@@ -14,13 +14,7 @@
             infinite-scroll-disabled="disabled"
           >
             <li v-for="kweet in kweets" :key="kweet.id" class="list-item">
-              <KweetCard
-                :id="kweet.id"
-                :message="kweet.message"
-                :displayName="kweet.profile.displayName"
-                :avatar="kweet.profile.avatar"
-                :likes="kweet.likes"
-              />
+              <KweetCard :kweet="kweet" />
             </li>
           </ul>
         </el-main>
@@ -66,9 +60,8 @@ export default defineComponent({
   computed: {
     ...mapGetters("profile", ["user"]),
     ...mapGetters("kweet", ["kweets"]),
-
     disabled(): boolean {
-      return this.$data.loading || this.noMore;
+      return this.$data.loading || this.$data.noMore;
     },
   },
   components: {
@@ -78,20 +71,17 @@ export default defineComponent({
   },
 
   methods: {
-    async load() {
+    async load(): Promise<void> {
       const kweetDtos: KweetDto[] = await this.$kweetService.get(
         this.$data.pageNumber,
         10,
-        this.user.id
+        this.user.profile.id
       );
-      console.log(kweetDtos);
       if (kweetDtos.length > 0) {
         var kweets: Kweet[] = [];
         kweetDtos.map(function (value) {
           kweets.push(toKweet(value));
         });
-        console.log(kweets);
-
         this.$store.dispatch(`kweet/${ActionTypes.SET_KWEETS}`, kweets);
         this.$data.pageNumber += 1;
       } else {

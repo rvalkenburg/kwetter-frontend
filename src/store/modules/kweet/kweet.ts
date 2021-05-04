@@ -31,7 +31,7 @@ export function toKweet(kweetDto: KweetDto): Kweet {
         },
         like: {
             liked: kweetDto.isLiked,
-            count: kweetDto.LikeCount,
+            count: kweetDto.likeCount,
         }
     }
     return kweet;

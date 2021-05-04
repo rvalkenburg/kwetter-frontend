@@ -1,5 +1,5 @@
 <template>
-  <navbar v-if="user !== null" />
+  <navbar />
   <router-view />
 </template>
 
@@ -10,16 +10,12 @@ import { mapGetters } from "vuex";
 
 export default defineComponent({
   name: "App",
-  data(): {} {
-    return {};
-  },
   components: {
     Navbar,
   },
   computed: {
     ...mapGetters("profile", ["user"]),
   },
-  methods: {},
 });
 </script>
 

@@ -1,8 +1,8 @@
 import IAuthService from '@/interfaces/IAuthService';
 import { Store } from 'vuex';
 import IProfileService from './interfaces/IProfileService';
-import IKweetService from './interfaces/KweetService';
-import IlikeService from './interfaces/KweetService';
+import IKweetService from './interfaces/IKweetService';
+import IlikeService from './interfaces/ILikeService';
 
 declare module '@vue/runtime-core' {
     interface ComponentCustomProperties {

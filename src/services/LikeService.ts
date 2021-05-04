@@ -20,8 +20,8 @@ export default class LikeService implements ILikeService {
         const LikeDto: LikeDto = response.data;
         return LikeDto;
     }
-    async unLike(likeId: string): Promise<LikeDto> {
-		const response = await axios.delete(baseUrl + "/api/like/" + likeId)
+    async unLike(profileId: string, kweetId: string): Promise<LikeDto> {
+		const response = await axios.delete(baseUrl + "/api/like/" + profileId + '/' + kweetId)
         const LikeDto: LikeDto = response.data.data;
         return LikeDto;
     }

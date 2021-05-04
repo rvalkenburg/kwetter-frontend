@@ -1,7 +1,7 @@
 import ProfileDto from '@/models/ProfileDto';
 
 export type User = {
-    profile: Profile,
+    profile: Profile | null,
 };
 
 export type Profile = {

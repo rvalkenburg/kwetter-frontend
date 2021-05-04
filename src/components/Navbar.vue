@@ -1,9 +1,16 @@
 <template>
-  <el-menu class="el-menu-demo" mode="horizontal" style="margin-bottom: 5px">
-    <el-menu-item @click="toTimeline()" index="1">Timeline</el-menu-item>
-    <el-menu-item @click="toProfile()" index="2">Profile</el-menu-item>
+  <el-menu
+    :router="true"
+    class="el-menu-demo"
+    mode="horizontal"
+    style="margin-bottom: 5px"
+    :default-active="index"
+    @select="handleSelect"
+  >
+    <el-menu-item index="/timeline">Timeline</el-menu-item>
+    <el-menu-item index="/profile">Profile</el-menu-item>
     <el-menu-item disabled index="3">Trending</el-menu-item>
-    <el-menu-item @click="signOut()" index="4">Logout</el-menu-item>
+    <el-menu-item @click="signOut()">Logout</el-menu-item>
   </el-menu>
 </template>
 
@@ -15,29 +22,30 @@ import { ActionTypes } from "@/store/modules/profile/actions";
 
 export default defineComponent({
   name: "Navbar",
-  data(): {} {
+  data(): { index: string } {
     return {
-      index: "",
+      index: this.$route.path,
     };
   },
   computed: {
     ...mapGetters("profile", ["user"]),
   },
   methods: {
-    toProfile() {
-      this.$router.push("/profile");
-    },
-    toTimeline() {
-      this.$router.push("/timeline");
-    },
     signOut() {
       firebase
         .auth()
         .signOut()
         .then(() => {
           this.$store.dispatch(`profile/${ActionTypes.SetUser}`, null);
-          this.$router.push("/");
+
+          this.$router.push({ name: "Login" });
         });
+      this.$router.push({ name: "Login" });
+    },
+    handleSelect(key: string) {
+      if (key !== this.$route.path) {
+        this.$data.index = this.$route.path;
+      }
     },
   },
 });

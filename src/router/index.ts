@@ -20,12 +20,14 @@ const router = createRouter({
         {
             path: '/timeline',
             component: TimelineView,
+            name: 'Timeline',
             meta: {
                 requiresAuth: true,
              },
         },
         {
             path: '/profile',
+            name: 'Profile',
             component: Profile,
             meta: {
                 requiresAuth: true,
@@ -37,18 +39,25 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
 	const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
 	firebase.auth().onAuthStateChanged(function(user: any) {
-        const loggedInUser = store.getters['profile/user'];
-        if(to.name == 'Login' && loggedInUser != null){
-            next({ path: '/timeline' });
+        console.log(user);
+        console.log(to)
+        if(!user){
+            if (to.name === "Login") {
+                next();
+            } else {
+                next('/');
+
+            }
         }
-		if (requiresAuth && !user) {
-			next("/");
-		} else {
-            next();
-		}
-        if(user == null && loggedInUser == null){
-            firebase.auth().signOut()
-            next("/");
+        if(user){
+            console.log('test')
+            if (to.name == "Login") {
+                console.log("should be directed")
+                next("/timeline");
+                return;
+            } else {
+                next();
+            }
         }
 	});
 });

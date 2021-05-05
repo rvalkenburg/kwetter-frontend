@@ -16,6 +16,7 @@ import ILikeService from './interfaces/ILikeService';
 
 import App from './App.vue';
 import firebase from 'firebase';
+import { ActionTypes } from './store/modules/auth/actions';
 
 const firebaseConfig = {
   apiKey: process.env.VUE_APP_APIKEY,
@@ -27,6 +28,15 @@ const firebaseConfig = {
 }
 
 firebase.initializeApp(firebaseConfig);
+
+firebase.auth().onAuthStateChanged(async user => {
+    if (user !== null && user !== undefined) {
+      await store.dispatch(`auth/${ActionTypes.SET_AUTH}`, user);
+    } else {
+      await store.dispatch(`auth/${ActionTypes.SET_AUTH}`, null);
+    }
+  }
+);
 
 const profileService: IProfileService = new ProfileService();
 const kweetService: IKweetService = new KweetService();

@@ -3,8 +3,6 @@ import { Mutations, MutationType } from './mutations';
 import { State } from './state';
 import { RootState } from '../../index'
 import { Kweet } from './kweet';
-import { state } from '../profile/state';
-import KweetService from '@/services/KweetService';
 
 export enum ActionTypes {
     SET_KWEETS = 'SET_KWEETS',

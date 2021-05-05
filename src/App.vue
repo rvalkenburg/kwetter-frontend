@@ -1,5 +1,5 @@
 <template>
-  <navbar />
+  <navbar v-if="auth != null" />
   <router-view />
 </template>
 
@@ -14,7 +14,7 @@ export default defineComponent({
     Navbar,
   },
   computed: {
-    ...mapGetters("profile", ["user"]),
+    ...mapGetters("auth", ["auth"]),
   },
 });
 </script>

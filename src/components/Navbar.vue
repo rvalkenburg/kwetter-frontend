@@ -36,7 +36,7 @@ export default defineComponent({
         .auth()
         .signOut()
         .then(() => {
-          this.$store.dispatch(`profile/${ActionTypes.SetUser}`, null);
+          this.$store.dispatch(`profile/${ActionTypes.SET_USER}`, null);
 
           this.$router.push({ name: "Login" });
         });

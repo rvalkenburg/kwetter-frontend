@@ -38,28 +38,25 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
 	const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
-	firebase.auth().onAuthStateChanged(function(user: any) {
-        console.log(user);
-        console.log(to)
-        if(!user){
-            if (to.name === "Login") {
-                next();
+    const authenticated = store.getters['auth/auth']
+    const currentProfile = store.getters['profile/user']
+
+        if(!requiresAuth){
+            if (authenticated != null && currentProfile != null) {
+                next("/timeline");
             } else {
-                next('/');
+                next();
 
             }
         }
-        if(user){
-            console.log('test')
-            if (to.name == "Login") {
-                console.log("should be directed")
-                next("/timeline");
-                return;
+        if(requiresAuth){
+            if (authenticated == null || currentProfile == null) {
+                next("/");
             } else {
                 next();
             }
         }
-	});
+
 });
 
 export default router;

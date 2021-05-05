@@ -1,7 +1,6 @@
 import { MutationTree } from 'vuex';
 import { State } from './state';
 import { Kweet } from './kweet'
-import { Vue } from 'vue-class-component';
 
 export enum MutationType {
     SET_KWEETS = 'SET_KWEETS',

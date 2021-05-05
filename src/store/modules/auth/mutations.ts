@@ -1,17 +1,16 @@
 import { MutationTree } from 'vuex';
 import { State } from './state';
-import { User } from './profile'
 
 export enum MutationType {
-    SET_USER = 'SET_USER',
+    SET_AUTH = 'SET_AUTH',
 }
 
 export type Mutations = {
-    [MutationType.SET_USER](state: State, payload: User):void
+    [MutationType.SET_AUTH](state: State, payload: Object):void
 }
 
 export const mutations: MutationTree<State> & Mutations = {
-    [MutationType.SET_USER](state, item) {
-        state.user = item;
+    [MutationType.SET_AUTH](state, item) {
+        state.auth = item;
     },
 }

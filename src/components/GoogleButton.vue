@@ -55,14 +55,14 @@ export default defineComponent({
             result.user.email != null ? result.user.email : "",
             result.user.uid != null ? result.user.uid : ""
           );
-          this.$store.dispatch(`profile/${ActionTypes.SetUser}`, profile);
+          this.$store.dispatch(`profile/${ActionTypes.SET_USER}`, profile);
         } else {
           const profile = await this.$profileService.update(
             result.user.displayName != null ? result.user.displayName : "",
             result.user.email != null ? result.user.email : "",
             result.user.uid != null ? result.user.uid : ""
           );
-          this.$store.dispatch(`profile/${ActionTypes.SetUser}`, profile);
+          this.$store.dispatch(`profile/${ActionTypes.SET_USER}`, profile);
         }
         this.$router.push("/timeline");
       }

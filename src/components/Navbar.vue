@@ -4,8 +4,6 @@
     class="el-menu-demo"
     mode="horizontal"
     style="margin-bottom: 5px"
-    :default-active="index"
-    @select="handleSelect"
   >
     <el-menu-item index="/timeline">Timeline</el-menu-item>
     <el-menu-item index="/profile">Profile</el-menu-item>
@@ -16,19 +14,13 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { mapGetters } from "vuex";
 import firebase from "firebase";
 import { ActionTypes } from "@/store/modules/profile/actions";
 
 export default defineComponent({
   name: "Navbar",
-  data(): { index: string } {
-    return {
-      index: this.$route.path,
-    };
-  },
-  computed: {
-    ...mapGetters("profile", ["user"]),
+  data(): {} {
+    return {};
   },
   methods: {
     signOut() {
@@ -41,11 +33,6 @@ export default defineComponent({
           this.$router.push({ name: "Login" });
         });
       this.$router.push({ name: "Login" });
-    },
-    handleSelect(key: string) {
-      if (key !== this.$route.path) {
-        this.$data.index = this.$route.path;
-      }
     },
   },
 });

@@ -18,6 +18,10 @@ import App from './App.vue';
 import firebase from 'firebase';
 import { ActionTypes } from './store/modules/auth/actions';
 
+//Axios
+import interceptorsSetup from './services/HttpCommon.ts'
+interceptorsSetup()
+
 const firebaseConfig = {
   apiKey: process.env.VUE_APP_APIKEY,
   authDomain: process.env.VUE_APP_AUTH_DOMAIN,
@@ -26,6 +30,8 @@ const firebaseConfig = {
   messagingSenderId: process.env.VUE_APP_MESSAGING_SENDER_ID,
   appId: process.env.VUE_APP_APP_ID
 }
+
+
 
 firebase.initializeApp(firebaseConfig);
 

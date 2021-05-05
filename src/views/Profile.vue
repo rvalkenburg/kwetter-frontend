@@ -72,20 +72,22 @@ export default defineComponent({
 
   methods: {
     async load(): Promise<void> {
-      const kweetDtos: KweetDto[] = await this.$kweetService.get(
-        this.$data.pageNumber,
-        10,
-        this.user.profile.id
-      );
-      if (kweetDtos.length > 0) {
-        var kweets: Kweet[] = [];
-        kweetDtos.map(function (value) {
-          kweets.push(toKweet(value));
-        });
-        this.$store.dispatch(`kweet/${ActionTypes.SET_KWEETS}`, kweets);
-        this.$data.pageNumber += 1;
-      } else {
-        this.$data.noMore = true;
+      if (this.user.profile != null) {
+        const kweetDtos: KweetDto[] = await this.$kweetService.get(
+          this.$data.pageNumber,
+          10,
+          this.user.profile.id
+        );
+        if (kweetDtos.length > 0) {
+          var kweets: Kweet[] = [];
+          kweetDtos.map(function (value) {
+            kweets.push(toKweet(value));
+          });
+          this.$store.dispatch(`kweet/${ActionTypes.SET_KWEETS}`, kweets);
+          this.$data.pageNumber += 1;
+        } else {
+          this.$data.noMore = true;
+        }
       }
     },
   },

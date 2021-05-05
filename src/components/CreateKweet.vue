@@ -34,7 +34,7 @@ export default defineComponent({
         return;
       } else {
         const kweet: KweetDto = await this.$kweetService.post(
-          this.user.id,
+          this.user.profile.id,
           this.input
         );
         this.$data.input = "";

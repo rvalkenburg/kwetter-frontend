@@ -11,24 +11,12 @@ export default class ProfileService implements IProfileService {
             email: email,
             googleId: googleId
         }
-        const options = {
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            
-        }
-		const response = await axios.put(baseUrl + "/api/profile", body, options)
+		const response = await axios.put(baseUrl + "/api/profile", body)
         const profileDto: ProfileDto = response.data;
         return profileDto;
     }
     public async get(id: string): Promise<ProfileDto> {
-        const options = {
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            
-        }
-		const response = await axios.get(baseUrl + "/api/profile/" + id, options)
+		const response = await axios.get(baseUrl + "/api/profile/" + id)
         const profileDto: ProfileDto = response.data.data;
         return profileDto;
     }
@@ -39,13 +27,7 @@ export default class ProfileService implements IProfileService {
             email: email,
             googleId: googleId
         }
-        const options = {
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            
-        }
-		const response = await axios.post(baseUrl + "/api/profile", body, options)
+		const response = await axios.post(baseUrl + "/api/profile", body)
         const profileDto: ProfileDto = response.data.data;
         return profileDto;
     }

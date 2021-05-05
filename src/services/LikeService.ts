@@ -10,13 +10,7 @@ export default class LikeService implements ILikeService {
             kweetId: kweetId,
             ProfileId:  profileId,
         }
-        const options = {
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            
-        }
-		const response = await axios.post(baseUrl + "/api/like", body, options)
+		const response = await axios.post(baseUrl + "/api/like", body)
         const LikeDto: LikeDto = response.data;
         return LikeDto;
     }

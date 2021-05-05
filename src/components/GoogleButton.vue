@@ -37,6 +37,7 @@
 import { defineComponent } from "vue";
 import firebase from "firebase";
 import { ActionTypes } from "@/store/modules/profile/actions";
+import { toUser } from "@/store/modules/profile/profile";
 
 export default defineComponent({
   name: "GoogleButton",
@@ -55,14 +56,20 @@ export default defineComponent({
             result.user.email != null ? result.user.email : "",
             result.user.uid != null ? result.user.uid : ""
           );
-          this.$store.dispatch(`profile/${ActionTypes.SET_USER}`, profile);
+          await this.$store.dispatch(
+            `profile/${ActionTypes.SET_USER}`,
+            toUser(profile)
+          );
         } else {
           const profile = await this.$profileService.update(
             result.user.displayName != null ? result.user.displayName : "",
             result.user.email != null ? result.user.email : "",
             result.user.uid != null ? result.user.uid : ""
           );
-          this.$store.dispatch(`profile/${ActionTypes.SET_USER}`, profile);
+          await this.$store.dispatch(
+            `profile/${ActionTypes.SET_USER}`,
+            toUser(profile)
+          );
         }
         this.$router.push("/timeline");
       }

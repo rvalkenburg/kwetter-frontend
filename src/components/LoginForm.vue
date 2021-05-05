@@ -27,9 +27,6 @@ import GoogleButton from "./GoogleButton.vue";
 
 export default defineComponent({
   name: "Login",
-  data(): {} {
-    return {};
-  },
   components: {
     GoogleButton,
   },

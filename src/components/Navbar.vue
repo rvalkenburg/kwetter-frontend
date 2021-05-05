@@ -19,9 +19,6 @@ import { ActionTypes } from "@/store/modules/profile/actions";
 
 export default defineComponent({
   name: "Navbar",
-  data(): {} {
-    return {};
-  },
   methods: {
     signOut() {
       firebase

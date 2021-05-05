@@ -2,7 +2,6 @@ import { createWebHistory, createRouter } from 'vue-router';
 import LoginView from '@/views/Login.vue';
 import TimelineView from '@/views/Timeline.vue'
 import Profile from '@/views/Profile.vue'
-import firebase from "firebase";
 import { store } from '@/store/index'
 
 const history = createWebHistory();

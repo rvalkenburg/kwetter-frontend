@@ -24,10 +24,5 @@ import { defineComponent } from "vue";
 
 export default defineComponent({
   name: "VerticalNavbar",
-  data(): {} {
-    return {
-      input: "",
-    };
-  },
 });
 </script>

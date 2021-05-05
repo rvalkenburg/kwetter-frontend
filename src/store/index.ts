@@ -5,7 +5,6 @@ import { store as profile, ProfileStore, State as ProfileState } from '@/store/m
 import { store as kweet, KweetStore, State as KweetState } from '@/store/modules/kweet';
 import { store as auth, AuthStore, State as AuthState } from '@/store/modules/auth';
 
-
 export type RootState = {
   profile: ProfileState;
   kweet: KweetState

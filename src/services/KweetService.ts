@@ -1,7 +1,6 @@
 import axios from "axios";
 import KweetDto from '@/models/KweetDto';
 import IKweetService from '@/interfaces/IKweetService'
-import firebase from "firebase";
 
 const baseUrl = process.env.VUE_APP_BASEURL_KWEET;
 

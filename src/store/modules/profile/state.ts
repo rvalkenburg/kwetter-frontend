@@ -1,9 +1,13 @@
-import { User } from './profile'
+import { Profile } from './profile'
 
 export type State = {
-    user: User | null,
+    profile: Profile | null,
+    profiles: Profile[] | null,
+    visitingProfile: Profile | null,
 }
 
 export const state: State = {
-    user: null
+    profile: null,
+    visitingProfile: null,
+    profiles: null
 }

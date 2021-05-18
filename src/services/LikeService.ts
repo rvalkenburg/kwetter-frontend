@@ -2,7 +2,7 @@ import axios from "axios";
 import ILikeService from '@/interfaces/ILikeService';
 import LikeDto from '@/models/LikeDto';
 
-const baseUrl = process.env.VUE_APP_BASEURL_LIKE
+const baseUrl = process.env.VUE_APP_BASEURL
 
 export default class LikeService implements ILikeService {
     async like(profileId: string, kweetId: string): Promise<LikeDto> {
@@ -10,12 +10,12 @@ export default class LikeService implements ILikeService {
             kweetId: kweetId,
             ProfileId:  profileId,
         }
-		const response = await axios.post(baseUrl + "/api/like", body)
+		const response = await axios.post(baseUrl + "/gateway/like", body)
         const LikeDto: LikeDto = response.data;
         return LikeDto;
     }
     async unLike(profileId: string, kweetId: string): Promise<LikeDto> {
-		const response = await axios.delete(baseUrl + "/api/like/" + profileId + '/' + kweetId)
+		const response = await axios.delete(baseUrl + "/gateway/like/" + profileId + '/' + kweetId)
         const LikeDto: LikeDto = response.data.data;
         return LikeDto;
     }

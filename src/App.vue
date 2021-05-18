@@ -1,12 +1,12 @@
 <template>
-  <navbar v-if="auth != null" />
+  <Navbar v-if="isUserLoggedIn" />
   <router-view />
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import { store } from "./store";
 import Navbar from "@/components/Navbar.vue";
-import { mapGetters } from "vuex";
 
 export default defineComponent({
   name: "App",
@@ -14,7 +14,13 @@ export default defineComponent({
     Navbar,
   },
   computed: {
-    ...mapGetters("auth", ["auth"]),
+    isUserLoggedIn() {
+      if (store.getters["auth/profile"]) {
+        return true;
+      } else {
+        return false;
+      }
+    },
   },
 });
 </script>

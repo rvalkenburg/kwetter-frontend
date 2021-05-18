@@ -26,7 +26,7 @@ import { defineComponent } from "vue";
 import GoogleButton from "./GoogleButton.vue";
 
 export default defineComponent({
-  name: "Login",
+  name: "LoginForm",
   components: {
     GoogleButton,
   },

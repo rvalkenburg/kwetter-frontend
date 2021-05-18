@@ -2,12 +2,12 @@ import axios from "axios";
 import KweetDto from '@/models/KweetDto';
 import IKweetService from '@/interfaces/IKweetService'
 
-const baseUrl = process.env.VUE_APP_BASEURL_KWEET;
+const baseUrl = process.env.VUE_APP_BASEURL;
 
 
 export default class KweetService implements IKweetService {
 
-    public async get(pageNumer: number, pageSize: number, userId: string): Promise<KweetDto[]> {
+    public async getByProfile(pageNumer: number, pageSize: number, userId: string): Promise<KweetDto[]> {
         const options = {
             params: {
                 pageNumber: pageNumer,
@@ -15,7 +15,19 @@ export default class KweetService implements IKweetService {
                 profileId: userId,
             }
         }
-		const response = await axios.get(baseUrl + "/api/kweet", options)
+		const response = await axios.get(baseUrl + "/gateway/kweet", options)
+        const KweetDto: KweetDto[] = response.data.data;
+        return KweetDto;
+    }
+    public async getByTimeline(pageNumer: number, pageSize: number, userId: string): Promise<KweetDto[]> {
+        const options = {
+            params: {
+                pageNumber: pageNumer,
+                pageSize: pageSize,
+                profileId: userId,
+            }
+        }
+		const response = await axios.get(baseUrl + "/gateway/kweet/timeline", options)
         const KweetDto: KweetDto[] = response.data.data;
         return KweetDto;
     }
@@ -24,7 +36,7 @@ export default class KweetService implements IKweetService {
             message: message,
             ProfileId:  userId,
         }
-		const response = await axios.post(baseUrl + "/api/kweet", body)
+		const response = await axios.post(baseUrl + "/gateway/kweet", body)
         const KweetDto: KweetDto = response.data.data;
         return KweetDto;
     }

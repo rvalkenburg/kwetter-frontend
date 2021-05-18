@@ -26,7 +26,7 @@ export default defineComponent({
     };
   },
   computed: {
-    ...mapGetters("profile", ["user"]),
+    ...mapGetters("auth", ["profile"]),
   },
   methods: {
     async createKweet(): Promise<void> {
@@ -34,7 +34,7 @@ export default defineComponent({
         return;
       } else {
         const kweet: KweetDto = await this.$kweetService.post(
-          this.user.profile.id,
+          this.profile.id,
           this.input
         );
         this.$data.input = "";

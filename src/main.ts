@@ -8,14 +8,17 @@ import { store } from "@/store";
 import ProfileService from './services/ProfileService';
 import KweetService from './services/KweetService';
 import LikeService from './services/LikeService';
+import FollowService from './services/FollowService';
 
 //Interfaces
 import IKweetService from './interfaces/IKweetService';
 import IProfileService from './interfaces/IProfileService';
 import ILikeService from './interfaces/ILikeService';
+import IFollowService from './interfaces/IFollowService';
+
 
 import App from './App.vue';
-import firebase from 'firebase';
+import firebase from 'firebase/app';
 import { ActionTypes } from './store/modules/auth/actions';
 
 //Axios
@@ -31,8 +34,6 @@ const firebaseConfig = {
   appId: process.env.VUE_APP_APP_ID
 }
 
-
-
 firebase.initializeApp(firebaseConfig);
 
 firebase.auth().onAuthStateChanged(async user => {
@@ -47,6 +48,7 @@ firebase.auth().onAuthStateChanged(async user => {
 const profileService: IProfileService = new ProfileService();
 const kweetService: IKweetService = new KweetService();
 const likeService: ILikeService = new LikeService();
+const followService: IFollowService = new FollowService();
 
 const app = createApp(App);
 app.use(router);
@@ -55,5 +57,6 @@ app.use(store);
 app.config.globalProperties.$profileService = profileService;
 app.config.globalProperties.$kweetService = kweetService;
 app.config.globalProperties.$likeService = likeService;
+app.config.globalProperties.$followService = followService;
 
 app.mount('#app');

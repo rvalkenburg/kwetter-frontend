@@ -1,5 +1,5 @@
 import axios from "axios";
-import firebase from "firebase";
+import firebase from "firebase/app";
 
 export default function setup() {
 axios.interceptors.request.use(

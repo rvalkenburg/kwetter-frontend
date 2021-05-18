@@ -36,8 +36,8 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import firebase from "firebase";
-import { ActionTypes } from "@/store/modules/profile/actions";
-import { toUser } from "@/store/modules/profile/profile";
+import { ActionTypes } from "@/store/modules/auth/actions";
+import { toProfile } from "@/store/modules/profile/profile";
 
 export default defineComponent({
   name: "GoogleButton",
@@ -56,9 +56,10 @@ export default defineComponent({
             result.user.email != null ? result.user.email : "",
             result.user.uid != null ? result.user.uid : ""
           );
-          await this.$store.dispatch(
-            `profile/${ActionTypes.SET_USER}`,
-            toUser(profile)
+          console.log(profile);
+          this.$store.dispatch(
+            `auth/${ActionTypes.SET_PROFILE}`,
+            toProfile(profile)
           );
         } else {
           const profile = await this.$profileService.update(
@@ -66,9 +67,9 @@ export default defineComponent({
             result.user.email != null ? result.user.email : "",
             result.user.uid != null ? result.user.uid : ""
           );
-          await this.$store.dispatch(
-            `profile/${ActionTypes.SET_USER}`,
-            toUser(profile)
+          this.$store.dispatch(
+            `auth/${ActionTypes.SET_PROFILE}`,
+            toProfile(profile)
           );
         }
         this.$router.push("/timeline");

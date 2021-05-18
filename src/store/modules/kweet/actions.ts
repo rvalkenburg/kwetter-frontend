@@ -8,6 +8,7 @@ export enum ActionTypes {
     SET_KWEETS = 'SET_KWEETS',
     ADD_KWEET = 'ADD_KWEET',
     UPDATE_KWEET = 'UPDATE_KWEET',
+    RESET_KWEET = 'RESET_KWEET',
 }
 
 type ActionAugments = Omit<ActionContext<State, RootState>, 'commit'> & {
@@ -30,6 +31,9 @@ export type Actions = {
         { commit }: ActionAugments,
         payload: Kweet
     ): void;
+    [ActionTypes.RESET_KWEET](
+        { commit }: ActionAugments,
+    ): void;
 }
 
 export const actions: ActionTree<State, RootState> & Actions = {
@@ -50,5 +54,10 @@ export const actions: ActionTree<State, RootState> & Actions = {
         payload: Kweet
     ): void {
         commit(MutationType.UPDATE_KWEET, payload);
+    },
+    [ActionTypes.RESET_KWEET](
+        { commit }: ActionAugments,
+    ): void {
+        commit(MutationType.RESET_KWEET, undefined);
     },
 }

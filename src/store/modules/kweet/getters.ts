@@ -4,7 +4,7 @@ import { RootState } from '@/store';
 import { State } from './state';
 
 export type Getters = {
-  kweets(state: State): Kweet[];
+  kweets(state: State): Kweet[] | null;
 }
 
 export const getters: GetterTree<State, RootState> & Getters = {

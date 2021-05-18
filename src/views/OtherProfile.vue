@@ -1,5 +1,5 @@
 <template>
-  <div v-if="!loading">
+  <div>
     <el-row>
       <el-col :span="7"> </el-col>
       <el-col :span="10">
@@ -37,14 +37,10 @@ import ProfileCard from "@/components/ProfileCard.vue";
 import KweetDto from "@/models/KweetDto";
 import { mapGetters } from "vuex";
 import { ActionTypes } from "@/store/modules/kweet/actions";
-import { ActionTypes as ProfileActionTypes } from "@/store/modules/profile/actions";
 import { Kweet, toKweet } from "@/store/modules/kweet/kweet";
-import ProfileDto from "@/models/ProfileDto";
-import { toProfile } from "@/store/modules/profile/profile";
 
 export default defineComponent({
   name: "Profile",
-  props: ["id"],
   data(): {
     count: number;
     loading: boolean;
@@ -62,7 +58,6 @@ export default defineComponent({
   },
   computed: {
     ...mapGetters("profile", ["user"]),
-    ...mapGetters("auth", ["profile"]),
     ...mapGetters("kweet", ["kweets"]),
   },
   components: {
@@ -70,22 +65,7 @@ export default defineComponent({
     KweetCard,
     ProfileCard,
   },
-
-  created() {
-    this.fetchData();
-  },
-
   methods: {
-    async fetchData() {
-      console.log(this.id);
-      const profileDto: ProfileDto = await this.$profileService.get(this.id);
-
-      this.$store.dispatch(
-        `profile/${ProfileActionTypes.SET_PROFILE}`,
-        toProfile(profileDto)
-      );
-      this.loading = false;
-    },
     async load(): Promise<void> {
       if (this.user != null && !this.$data.noMore) {
         const kweetDtos: KweetDto[] = await this.$kweetService.getByProfile(
@@ -117,5 +97,3 @@ export default defineComponent({
   list-style: none;
 }
 </style>
-
-

@@ -1,9 +1,5 @@
 import ProfileDto from '@/models/ProfileDto';
 
-export type User = {
-    profile: Profile | null,
-};
-
 export type Profile = {
     id: string
     picture: string,
@@ -11,14 +7,13 @@ export type Profile = {
     name: string
 };
 
-export function toUser(profileDto: ProfileDto): User {
-    const user: User = {
-        profile: {
-            name: profileDto.displayName,
-            picture: profileDto.avatar,
-            id: profileDto.id,
-            email: '',
-        },
+export function toProfile(profileDto: ProfileDto): Profile {
+    console.log(profileDto)
+    const profile: Profile = {
+        name: profileDto.displayName,
+        picture: profileDto.avatar,
+        id: profileDto.id,
+        email: '',
     }
-    return user;
+    return profile;
 }

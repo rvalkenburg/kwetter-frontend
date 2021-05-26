@@ -38,6 +38,7 @@ import { defineComponent } from "vue";
 import firebase from "firebase";
 import { ActionTypes } from "@/store/modules/auth/actions";
 import { toProfile } from "@/store/modules/profile/profile";
+import AuthDto from "@/models/AuthDto";
 
 export default defineComponent({
   name: "GoogleButton",
@@ -50,13 +51,10 @@ export default defineComponent({
       const result = await firebase.auth().signInWithPopup(provider);
       if (result.user !== null) {
         if (result.additionalUserInfo?.isNewUser) {
-          const profile = await this.$profileService.post(
-            result.user.photoURL != null ? result.user.photoURL : "",
-            result.user.displayName != null ? result.user.displayName : "",
-            result.user.email != null ? result.user.email : "",
-            result.user.uid != null ? result.user.uid : ""
+          const authDto: AuthDto = await this.$authService.post(
+            (await firebase.auth().currentUser?.getIdToken()) as string
           );
-          console.log(profile);
+          const profile = await this.$profileService.get(authDto.id);
           this.$store.dispatch(
             `auth/${ActionTypes.SET_PROFILE}`,
             toProfile(profile)

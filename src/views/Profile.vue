@@ -77,7 +77,6 @@ export default defineComponent({
 
   methods: {
     async fetchData() {
-      console.log(this.id);
       const profileDto: ProfileDto = await this.$profileService.get(this.id);
 
       this.$store.dispatch(

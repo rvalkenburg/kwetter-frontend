@@ -3,22 +3,22 @@
     <el-row>
       <div style="display: flex; align-items: center">
         <el-col :span="6">
-          <el-avatar :size="60" :src="avatar"></el-avatar>
+          <el-avatar :size="60" :src="seach.avatar"></el-avatar>
         </el-col>
         <el-col :span="12">
-          <span style="display: Inline-Block">{{ displayName }} </span>
+          <span style="display: Inline-Block">{{ seach.displayName }} </span>
         </el-col>
         <el-col :span="6">
           <el-button @click="openProfile()">Visit profile</el-button>
         </el-col>
         <el-col :span="6">
-          <div v-if="status == true">
-            <el-button :v-if="status == true" @click="unFollowProfile()"
+          <div v-if="seach.status == true">
+            <el-button :v-if="seach.status == true" @click="unFollowProfile()"
               >Unfollow</el-button
             >
           </div>
-          <div v-if="status == false">
-            <el-button :v-if="status == false" @click="followProfile()"
+          <div v-if="seach.status == false">
+            <el-button :v-if="seach.status == false" @click="followProfile()"
               >Follow</el-button
             >
           </div>
@@ -29,16 +29,15 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { ActionTypes } from "@/store/modules/search/actions";
+import { Search } from "@/store/modules/search/search";
+import { defineComponent, PropType } from "vue";
 import { mapGetters } from "vuex";
 
 export default defineComponent({
   name: "FollowSuggest",
   props: {
-    id: String,
-    displayName: String,
-    avatar: String,
-    status: Boolean,
+    seach: Object as PropType<Search>,
   },
   data(): { input: string } {
     return {
@@ -53,14 +52,32 @@ export default defineComponent({
     openProfile() {
       this.$router.push({
         name: "Profile",
-        params: { id: this.$props.id as any },
+        params: { id: this.$props.seach?.id as any },
       });
     },
     followProfile() {
-      this.$followService.follow(this.profile.id, this.id as string);
+      this.$followService.follow(
+        this.profile.id,
+        this.$props.seach?.id as string
+      );
+      const updatedSearch: Search = this.seach as Search;
+      updatedSearch.status = true;
+      this.$store.dispatch(
+        `search/${ActionTypes.UPDATE_SEARCH}`,
+        updatedSearch
+      );
     },
     unFollowProfile() {
-      this.$followService.unFollow(this.profile.id, this.id as string);
+      this.$followService.unFollow(
+        this.profile.id,
+        this.$props.seach?.id as string
+      );
+      const updatedSearch: Search = this.seach as Search;
+      updatedSearch.status = false;
+      this.$store.dispatch(
+        `search/${ActionTypes.UPDATE_SEARCH}`,
+        updatedSearch
+      );
     },
   },
 });

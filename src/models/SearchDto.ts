@@ -1,5 +1,5 @@
 export default interface SeachDto {
-    id: number;
+    id: string;
     displayName: string;
     avatar: string;
     status: boolean;

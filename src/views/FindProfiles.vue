@@ -17,13 +17,12 @@
               v-infinite-scroll="load"
               style="overflow: auto"
             >
-              <li v-for="profile in data" :key="profile.id" class="list-item">
-                <FollowSuggest
-                  :displayName="profile.displayName"
-                  :avatar="profile.avatar"
-                  :id="profile.id"
-                  :status="profile.status"
-                />
+              <li
+                v-for="profile in results"
+                :key="profile.id"
+                class="list-item"
+              >
+                <FollowSuggest :seach="profile" />
               </li>
             </ul>
           </el-main>
@@ -36,9 +35,10 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import { mapGetters } from "vuex";
-import { ActionTypes } from "@/store/modules/profile/actions";
 import FollowSuggest from "@/components/FollowSuggest.vue";
 import SearchDto from "@/models/SearchDto";
+import { ActionTypes } from "@/store/modules/search/actions";
+import { Search, toSearch } from "@/store/modules/search/search";
 
 export default defineComponent({
   name: "FindProfiles",
@@ -64,7 +64,7 @@ export default defineComponent({
   components: { FollowSuggest },
   computed: {
     ...mapGetters("auth", ["profile"]),
-    ...mapGetters("profile", ["profiles"]),
+    ...mapGetters("search", ["results"]),
   },
   methods: {
     async load(): Promise<void> {
@@ -76,7 +76,11 @@ export default defineComponent({
           this.profile.id
         );
         if (searchDto.length > 0) {
-          this.$data.data = searchDto;
+          var results: Search[] = [];
+          searchDto.map(function (value) {
+            results.push(toSearch(value));
+          });
+          this.$store.dispatch(`search/${ActionTypes.ADD_SEARCH}`, results);
           this.$data.pageNumber += 1;
         } else {
           this.$data.noMore = true;
@@ -84,7 +88,6 @@ export default defineComponent({
       }
     },
     async getProfiles(): Promise<void> {
-      this.$store.dispatch(`profile/${ActionTypes.RESET_PROFILES}`);
       this.$data.pageNumber = 0;
       const searchDto: SearchDto[] = await this.$profileService.getByName(
         this.input,
@@ -93,8 +96,13 @@ export default defineComponent({
         this.profile.id
       );
       if (searchDto.length > 0) {
-        this.$data.data = searchDto;
+        var results: Search[] = [];
+        searchDto.map(function (value) {
+          results.push(toSearch(value));
+        });
 
+        this.$store.dispatch(`search/${ActionTypes.SET_SEARCH}`, results);
+        this.$data.data = searchDto;
         this.$data.pageNumber += 1;
       }
     },

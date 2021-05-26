@@ -4,6 +4,8 @@ import IProfileService from './interfaces/IProfileService';
 import IKweetService from './interfaces/IKweetService';
 import ILikeService from './interfaces/ILikeService';
 import IFollowService from './interfaces/IFollowService';
+import IAuthService from './interfaces/IAuthService';
+
 
 declare module '@vue/runtime-core' {
     interface ComponentCustomProperties {
@@ -13,6 +15,6 @@ declare module '@vue/runtime-core' {
         $kweetService: IKweetService;
         $likeService: ILikeService;
         $followService: IFollowService;
-
+        $authService: IAuthService;
     }
 }

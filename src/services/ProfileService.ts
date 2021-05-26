@@ -34,15 +34,4 @@ export default class ProfileService implements IProfileService {
         const profileDto: ProfileDto = response.data;
         return profileDto;
     }
-	public async post(avatar: string, displayName: string, email: string, googleId: string): Promise<ProfileDto> {
-        const body = {
-            avatar: avatar,
-            displayName:  displayName,
-            email: email,
-            googleId: googleId
-        }
-		const response = await axios.post(baseUrl + "/gateway/profile", body)
-        const profileDto: ProfileDto = response.data;
-        return profileDto;
-    }
 }

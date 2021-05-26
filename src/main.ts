@@ -9,12 +9,14 @@ import ProfileService from './services/ProfileService';
 import KweetService from './services/KweetService';
 import LikeService from './services/LikeService';
 import FollowService from './services/FollowService';
+import AuthService from './services/AuthService';
 
 //Interfaces
 import IKweetService from './interfaces/IKweetService';
 import IProfileService from './interfaces/IProfileService';
 import ILikeService from './interfaces/ILikeService';
 import IFollowService from './interfaces/IFollowService';
+import IAuthService from './interfaces/IAuthService';
 
 
 import App from './App.vue';
@@ -49,6 +51,7 @@ const profileService: IProfileService = new ProfileService();
 const kweetService: IKweetService = new KweetService();
 const likeService: ILikeService = new LikeService();
 const followService: IFollowService = new FollowService();
+const authService: IAuthService = new AuthService();
 
 const app = createApp(App);
 app.use(router);
@@ -58,5 +61,6 @@ app.config.globalProperties.$profileService = profileService;
 app.config.globalProperties.$kweetService = kweetService;
 app.config.globalProperties.$likeService = likeService;
 app.config.globalProperties.$followService = followService;
+app.config.globalProperties.$authService = authService;
 
 app.mount('#app');

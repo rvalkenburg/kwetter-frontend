@@ -1,6 +1,5 @@
 import axios from "axios";
 import IFollowService from '@/interfaces/IFollowService';
-import LikeDto from '@/models/LikeDto';
 import FollowDto from "@/models/FollowDto";
 
 const baseUrl = process.env.VUE_APP_BASEURL
@@ -31,5 +30,4 @@ export default class FollowService implements IFollowService {
         const followDto: FollowDto = response.data.data;
         return followDto;
     }
-
 }

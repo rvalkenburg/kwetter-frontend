@@ -27,6 +27,8 @@ export const mutations: MutationTree<State> & Mutations = {
     [MutationType.ADD_KWEET](state, item) {
         if(state.kweets != null){
             state.kweets.unshift(item);
+        } else {
+            state.kweets = Array(item)
         }
 
     },

@@ -8,7 +8,6 @@ export type Profile = {
 };
 
 export function toProfile(profileDto: ProfileDto): Profile {
-    console.log(profileDto)
     const profile: Profile = {
         name: profileDto.displayName,
         picture: profileDto.avatar,

@@ -7,6 +7,7 @@ const baseUrl = process.env.VUE_APP_BASEURL
 export default class AuthService implements IAuthService {
 
     async post(jwt: string): Promise<AuthDto> {
+        console.log(baseUrl)
             const body = {
                 jwt: jwt,
             }

@@ -1,8 +1,9 @@
 import axios from "axios";
 import IFollowService from '@/interfaces/IFollowService';
 import FollowDto from "@/models/FollowDto";
+import Configuration from "@/configuration";
 
-const baseUrl = process.env.VUE_APP_BASEURL
+const baseUrl = Configuration.value('VUE_APP_BASEURL');
 
 export default class FollowService implements IFollowService {
      async getFollowStatus(userId: string, followId: string): Promise<FollowDto> {

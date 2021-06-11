@@ -1,8 +1,9 @@
+import Configuration from "@/configuration";
 import IAuthService from "@/interfaces/IAuthService";
 import AuthDto from "@/models/AuthDto";
 import axios from "axios";
 
-const baseUrl = process.env.VUE_APP_BASEURL
+const baseUrl = Configuration.value('VUE_APP_BASEURL');
 
 export default class AuthService implements IAuthService {
 

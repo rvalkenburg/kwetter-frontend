@@ -2,8 +2,9 @@ import axios from "axios";
 import IProfileService from '@/interfaces/IProfileService';
 import ProfileDto from '@/models/ProfileDto';
 import SeachDto from "@/models/SearchDto";
+import Configuration from "@/configuration";
 
-const baseUrl = process.env.VUE_APP_BASEURL;
+const baseUrl = Configuration.value('VUE_APP_BASEURL');
 
 export default class ProfileService implements IProfileService {
     public async getByName(displayName: string, pageNumber: number, pageSize: number, id: string): Promise<SeachDto[]> {

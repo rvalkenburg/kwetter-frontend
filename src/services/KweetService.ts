@@ -1,9 +1,9 @@
 import axios from "axios";
 import KweetDto from '@/models/KweetDto';
 import IKweetService from '@/interfaces/IKweetService'
+import Configuration from "@/configuration";
 
-const baseUrl = process.env.VUE_APP_BASEURL;
-
+const baseUrl = Configuration.value('VUE_APP_BASEURL');
 
 export default class KweetService implements IKweetService {
 

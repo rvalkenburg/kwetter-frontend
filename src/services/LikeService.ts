@@ -1,8 +1,9 @@
 import axios from "axios";
 import ILikeService from '@/interfaces/ILikeService';
 import LikeDto from '@/models/LikeDto';
+import Configuration from "@/configuration";
 
-const baseUrl = process.env.VUE_APP_BASEURL
+const baseUrl = Configuration.value('VUE_APP_BASEURL');
 
 export default class LikeService implements ILikeService {
     async like(profileId: string, kweetId: string): Promise<LikeDto> {

@@ -50,7 +50,6 @@ export default defineComponent({
       const provider = new firebase.auth.GoogleAuthProvider();
       const result = await firebase.auth().signInWithPopup(provider);
       if (result.user !== null) {
-        console.log(result);
         if (result.additionalUserInfo?.isNewUser) {
           const authDto: AuthDto = await this.$authService.post(
             (await firebase.auth().currentUser?.getIdToken()) as string

@@ -104,6 +104,8 @@ export default defineComponent({
         this.$store.dispatch(`search/${ActionTypes.SET_SEARCH}`, results);
         this.$data.data = searchDto;
         this.$data.pageNumber += 1;
+      } else {
+        this.$store.dispatch(`search/${ActionTypes.RESET_SEARCH}`);
       }
     },
   },

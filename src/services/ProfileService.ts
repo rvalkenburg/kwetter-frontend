@@ -31,9 +31,7 @@ export default class ProfileService implements IProfileService {
         return profileDto;
     }
     public async get(id: string): Promise<ProfileDto> {
-        console.log(baseUrl);
 		const response = await axios.get(baseUrl + "/gateway/profile/" + id)
-        console.log(response)
         const profileDto: ProfileDto = response.data;
         return profileDto;
     }

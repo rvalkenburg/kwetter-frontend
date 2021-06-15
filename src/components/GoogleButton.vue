@@ -42,6 +42,13 @@ import AuthDto from "@/models/AuthDto";
 
 export default defineComponent({
   name: "GoogleButton",
+  data(): {
+    success: boolean;
+  } {
+    return {
+      success: false,
+    };
+  },
   methods: {
     async loginWithGoogle() {
       await firebase
@@ -54,11 +61,9 @@ export default defineComponent({
           const authDto: AuthDto = await this.$authService.post(
             (await firebase.auth().currentUser?.getIdToken()) as string
           );
-          const profile = await this.$profileService.get(authDto.id);
-          this.$store.dispatch(
-            `auth/${ActionTypes.SET_PROFILE}`,
-            toProfile(profile)
-          );
+          if (authDto != null) {
+            this.$store.dispatch(`auth/${ActionTypes.SET_SUCCESS}`, true);
+          }
         } else {
           const profile = await this.$profileService.update(
             result.user.displayName != null ? result.user.displayName : "",

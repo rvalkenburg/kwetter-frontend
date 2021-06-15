@@ -7,6 +7,7 @@ import { Profile } from '../profile/profile';
 export enum ActionTypes {
     SET_AUTH = 'SET_AUTH',
     SET_PROFILE = 'SET_PROFILE',
+    SET_SUCCESS = 'SET_SUCCESS',
 }
 
 type ActionAugments = Omit<ActionContext<State, RootState>, 'commit'> & {
@@ -25,6 +26,10 @@ export type Actions = {
         { commit }: ActionAugments,
         payload: Profile
     ): void;
+    [ActionTypes.SET_SUCCESS](
+        { commit }: ActionAugments,
+        payload: boolean
+    ): void;
 }
 
 export const actions: ActionTree<State, RootState> & Actions = {
@@ -39,5 +44,11 @@ export const actions: ActionTree<State, RootState> & Actions = {
         payload: Profile
     ): void {
         commit(MutationType.SET_PROFILE, payload);
+    },
+    [ActionTypes.SET_SUCCESS](
+        { commit }: ActionAugments,
+        payload: boolean
+    ): void {
+        commit(MutationType.SET_SUCCESS, payload);
     },
 }

@@ -20,7 +20,10 @@
     </el-row>
     <el-divider class="divide-space" content-position="center"></el-divider>
     <el-row>
-      <el-col :span="24">
+      <el-col :span="8">
+        {{ new Date(kweet.dateOfCreation).toLocaleString() }}
+      </el-col>
+      <el-col :span="16">
         <div style="float: right">
           <el-badge :value="likeCount" class="item">
             <el-button @click="pressedLikeKweet()" size="small">Like</el-button>
@@ -49,7 +52,7 @@ export default defineComponent({
     };
   },
   computed: {
-    ...mapGetters("profile", ["user"]),
+    ...mapGetters("auth", ["profile"]),
     likeCount(): number {
       if (this.kweet?.like.count !== undefined) {
         return this.kweet?.like.count;
@@ -61,7 +64,7 @@ export default defineComponent({
     async pressedLikeKweet(): Promise<void> {
       if (this.kweet !== undefined) {
         if (this.kweet?.like.liked == false) {
-          await this.$likeService.like(this.user.id, this.kweet.id);
+          await this.$likeService.like(this.profile.id, this.kweet.id);
           const updatedKweet: Kweet = this.kweet;
           updatedKweet.like.liked = true;
           updatedKweet.like.count += 1;
@@ -71,7 +74,7 @@ export default defineComponent({
           );
           return;
         } else {
-          await this.$likeService.unLike(this.user.id, this.kweet.id);
+          await this.$likeService.unLike(this.profile.id, this.kweet.id);
           const updatedKweet: Kweet = this.kweet;
           updatedKweet.like.liked = false;
           updatedKweet.like.count -= 1;
